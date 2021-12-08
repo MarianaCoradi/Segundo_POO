@@ -28,18 +28,16 @@ class ProgramaDeTv:
 
 class Filme(ProgramaDeTv):
     def __init__(self, nome, ano, duracao):
-        self._nome = nome.title()
-        self.ano = ano
-        self.duracao = duracao 
-        self._likes = 0
+        super().__init__(nome, ano)
+        self.duracao = duracao
+
 
 
 class Serie(ProgramaDeTv):
     def __init__(self, nome, ano, temporadas):
-        self._nome = nome.title()
-        self.ano = ano
+        super().__init__(nome, ano)
         self.temporadas = temporadas
-        self._likes = 0
+
 
 
 vingadores = Filme("vigandores", 2018, 160)

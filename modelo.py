@@ -6,6 +6,7 @@ class ProgramaDeTv:
         self.ano = ano
         self._likes = 0
 
+    #métodos em comum que todas as classes filhas herdarão
     def dar_like(self):
         self._likes += 1
 
@@ -25,14 +26,19 @@ class ProgramaDeTv:
     def likes(self, likes):
         self._likes = likes
 
+    #criando um método genérico de imprimir os atributos em comum das classes filhas
+    def imprime(self):
+        print(f'{self.nome} - {self.ano} -  {self._likes}Likes')
+
 
 class Filme(ProgramaDeTv):
     def __init__(self, nome, ano, duracao):
         super().__init__(nome, ano)
         self.duracao = duracao
 
-    def retorna_cadastro_diferenciado(self):
-        pass
+    # sobrescrevendo o método imprime da classe mãe para adicionar atributos específicos da classe filha
+    def imprime(self):
+        print(f'Nome: {self.nome} - Ano: {self.ano} - Duracao: {self.duracao} minutos: {self._likes} Likes')
 
 
 class Serie(ProgramaDeTv):
@@ -40,17 +46,19 @@ class Serie(ProgramaDeTv):
         super().__init__(nome, ano)
         self.temporadas = temporadas
 
-
+    #sobrescrevendo o método imprime da classe mãe para adicionar atributos específicos da classe filha
+    def imprime(self):
+        print(f'Nome: {self.nome} - Ano: {self.ano} - Temporadas: {self.temporadas} : {self._likes} Likes')
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160)
 vingadores.dar_like()
 
 atlanta = Serie('atlanta', 2018, 2)
 atlanta.dar_like()
-
+atlanta.dar_like()
 
 filmes_e_series = [vingadores, atlanta]
 
 for programa in filmes_e_series:
-    detalhes = programa.duracao if hasattr(programa, "duracao") else programa.temporadas
-    print(f'{programa.nome} - {detalhes}: {programa.likes}')
+    programa.imprime() #chamará o método imprime pertecente a cada classe daquele objeto dentro da lista, quando for filme imprimirá o imprime() do filme, etc
+    #polimorfismo

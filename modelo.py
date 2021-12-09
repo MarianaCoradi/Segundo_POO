@@ -26,9 +26,10 @@ class ProgramaDeTv:
     def likes(self, likes):
         self._likes = likes
 
-    #criando um método genérico de imprimir os atributos em comum das classes filhas
-    def imprime(self):
-        print(f'{self.nome} - {self.ano} -  {self._likes}Likes')
+    #trocando a função imprime por uma função dunder, que é mais pythônico.
+    #Esse método especial necessita retornar um valor como strig, que represente o objeto desejado
+    def __str__(self):
+       return f'{self.nome} - {self.ano} -  {self._likes}Likes'
 
 
 class Filme(ProgramaDeTv):
@@ -36,9 +37,9 @@ class Filme(ProgramaDeTv):
         super().__init__(nome, ano)
         self.duracao = duracao
 
-    # sobrescrevendo o método imprime da classe mãe para adicionar atributos específicos da classe filha
-    def imprime(self):
-        print(f'Nome: {self.nome} - Ano: {self.ano} - Duracao: {self.duracao} minutos: {self._likes} Likes')
+    # sobrescrevendo o método __str__ da classe mãe para adicionar atributos específicos da classe filha
+    def __str__(self):
+        return f'Nome: {self.nome} - Ano: {self.ano} - Duracao: {self.duracao} minutos: {self._likes} Likes'
 
 
 class Serie(ProgramaDeTv):
@@ -46,9 +47,9 @@ class Serie(ProgramaDeTv):
         super().__init__(nome, ano)
         self.temporadas = temporadas
 
-    #sobrescrevendo o método imprime da classe mãe para adicionar atributos específicos da classe filha
-    def imprime(self):
-        print(f'Nome: {self.nome} - Ano: {self.ano} - Temporadas: {self.temporadas} : {self._likes} Likes')
+    #sobrescrevendo o método __str__ da classe mãe para adicionar atributos específicos da classe filha
+    def __str__(self):
+        return f'Nome: {self.nome} - Ano: {self.ano} - Temporadas: {self.temporadas} : {self._likes} Likes'
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160)
 vingadores.dar_like()
@@ -60,5 +61,5 @@ atlanta.dar_like()
 filmes_e_series = [vingadores, atlanta]
 
 for programa in filmes_e_series:
-    programa.imprime() #chamará o método imprime pertecente a cada classe daquele objeto dentro da lista, quando for filme imprimirá o imprime() do filme, etc
-    #polimorfismo
+    print(programa)  # o print chamará a função interna do programa que tem para exibir seu conteúdocomo texto
+    #não preciso chamar o método explicitamente, como por exemplo, programa.imprime()

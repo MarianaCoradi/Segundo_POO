@@ -52,13 +52,14 @@ class Serie(ProgramaDeTv):
         return f'Nome: {self.nome} - Ano: {self.ano} - Temporadas: {self.temporadas} : {self._likes} Likes'
 
 
-class Playlist:
+#A classe Palylist herdará as características da super classe list
+class Playlist(list):
     def __init__(self, nome, programas):
         self.nome = nome
-        self.programas = programas
+        super().__init__(programas) #chamndo o construtor da super classe list e passarei programs como lista
+        #A classe Playlist terá sua característica própria, que é possuir um nome, e herdará as caracteristicas da classe list, como ser iterable
 
-    def tamanho(self):
-        return len(self.programas)
+
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160)
 atlanta = Serie('atlanta', 2018, 2)
@@ -79,6 +80,10 @@ atlanta.dar_like()
 filmes_e_series = [vingadores, atlanta, demolidor, tmep]
 playlist_fim_de_semana = Playlist('Playlist de fim de semana', filmes_e_series)
 
-for programa in playlist_fim_de_semana.programas:
-    print(programa)  # o print chamará a função interna do programa que tem para exibir seu conteúdocomo texto
-    #não preciso chamar o método explicitamente, como por exemplo, programa.imprime()
+#Algumas vantagens de Playlist ter herdado a superclasse list: Posso iterar, posso saber o seu tanho a partir do len() e posso ver ser algum objeto está contido nela
+print(f'Tamnho da playlist: {len(playlist_fim_de_semana)}')
+
+for programa in playlist_fim_de_semana: #removi o. programs, pois meu objeto playlist_fim_de_semana agora é iterável, agora o playlist pode ser usado como list
+    print(programa)
+
+print(f'Está ou não na minha playlist? {demolidor in playlist_fim_de_semana}')

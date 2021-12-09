@@ -52,12 +52,13 @@ class Serie(ProgramaDeTv):
         return f'Nome: {self.nome} - Ano: {self.ano} - Temporadas: {self.temporadas} : {self._likes} Likes'
 
 
-#Retirando a herança de list da classe Palylist, pois eu não sei todos os métodos da classe built-in de list eu quero apenas algumas características de list
-#Essa herança criou complexidades desnecessárias
 class Playlist:
     def __init__(self, nome, programas):
         self.nome = nome
         self._programas = programas
+
+    def __getitem__(self, item): #Este método define algo que é iterável 
+        return self._programas[item]
 
     @property
     def listagem(self):
@@ -87,10 +88,12 @@ atlanta.dar_like()
 filmes_e_series = [vingadores, atlanta, demolidor, tmep]
 playlist_fim_de_semana = Playlist('Playlist de fim de semana', filmes_e_series)
 
-#Algumas vantagens de Playlist ter herdado a superclasse list: Posso iterar, posso saber o seu tanho a partir do len() e posso ver ser algum objeto está contido nela
-print(f'Tamnho da playlist: {len(playlist_fim_de_semana.listagem)}')
 
-for programa in playlist_fim_de_semana.listagem: #removi o. programs, pois meu objeto playlist_fim_de_semana agora é iterável, agora o playlist pode ser usado como list
+#print(f'Tamnho da playlist: {len(playlist_fim_de_semana)}') # --> receberemos no console que não há nenhum len()
+
+for programa in playlist_fim_de_semana: #voltei com a funcionalidade de playlist_fim_de_semana ser iterável usando __getitem__
     print(programa)
 
-#print(f'Está ou não na minha playlist? {demolidor in playlist_fim_de_semana}')
+print(f'Está ou não na minha playlist? {demolidor in playlist_fim_de_semana}')
+
+print(playlist_fim_de_semana[0])

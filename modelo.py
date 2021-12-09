@@ -57,16 +57,22 @@ class Playlist:
         self.nome = nome
         self._programas = programas
 
-    def __getitem__(self, item): #Este método define algo que é iterável 
+    #Usando o duck typing, o objeto irá se comportar como uma sequência iterável
+    def __getitem__(self, item): #Este método define algo que é iterável
         return self._programas[item]
 
     @property
     def listagem(self):
         return self._programas
 
-    @property
-    def tamanho(self):
+    def __len__(self): #faz com que quando função len() é chamada externamente, ele retorne o tamanho
         return len(self._programas)
+
+    def __add__(self,outro_programa): #resignificando o sinal de adição, sobrescrevendo o método __add__
+        return self._programas.append(outro_programa)
+
+    def __sub__(self,outro_programa): #resignificando o sinal de subtração, sobrescrevendo o método __sub__
+        return self._programas.remove(outro_programa)
 
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160)
@@ -89,11 +95,21 @@ filmes_e_series = [vingadores, atlanta, demolidor, tmep]
 playlist_fim_de_semana = Playlist('Playlist de fim de semana', filmes_e_series)
 
 
-#print(f'Tamnho da playlist: {len(playlist_fim_de_semana)}') # --> receberemos no console que não há nenhum len()
-
+print(f'Tamanho da playlist: {len(playlist_fim_de_semana)}') # --> Agora com o uso do __len__ podemos usar a função leng9) que ela irá retornar o tamanho da lista do nosso objeto
+print("-------")
 for programa in playlist_fim_de_semana: #voltei com a funcionalidade de playlist_fim_de_semana ser iterável usando __getitem__
     print(programa)
-
+print("-------")
 print(f'Está ou não na minha playlist? {demolidor in playlist_fim_de_semana}')
-
 print(playlist_fim_de_semana[0])
+
+rei_leao = Filme('rei leão', 1999, 120)
+playlist_fim_de_semana + rei_leao #resignificando o sinal de adição, sobrescrevendo o método __add__
+print("-------")
+for programa in playlist_fim_de_semana:
+    print(programa)
+
+print("-------")
+playlist_fim_de_semana - atlanta #resignificando o sinal de subtração, sobrescrevendo o método __sub__
+for programa in playlist_fim_de_semana:
+    print(programa)

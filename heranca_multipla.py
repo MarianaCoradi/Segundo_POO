@@ -35,3 +35,6 @@ luan.busca_cursos_do_mes()
 luan.registra_horas(50)
 
 luan.mostrar_tarefas() #Nessa linha de código o luan que teria acesso ao mostrar_tarefas de Alura e Caelum , apenas printa o do Alura!!!!
+# Ordem em que o algoritmo do Python procura os métodos (MRO): Pleno > Alura > Funcionario > Caelum > Funcionario
+#Ou seja, primeiro ele procura na classe filha(Pleno), depois na primeira classe mãe(Alura) e depois na classe mãe da primeira classe mãe(Funcionario)...
+#... apenas depois que ele irá procurar na segunda classe mãe da classe filha (Caelum) e por fim, na classe mãe da segunda classe mãe (no nosso caso, também é Funcionario)
